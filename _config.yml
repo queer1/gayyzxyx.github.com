@@ -11,12 +11,12 @@ paginate: 5
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : Heroin blog
-tagline: Heroin blog
+title : gayyzxyx blog
+tagline: gayyzxyx blog
 author :
-  name : Heroin
-  email : heroin.nee@gmail.com
-  github : heroin
+  name : gayyzxyx
+  email : yao.rid@gmail.com
+  github : gayyzxyx
   twitter : None
   feedburner : None
 
@@ -28,7 +28,7 @@ author :
 # Else if you are pushing to username.github.com, replace with your username.
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
-production_url : http://heroin.so
+production_url : http://gayyzxyx.github.com
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
@@ -83,11 +83,11 @@ JB :
   comments :
     provider : disqus
     disqus :
-      short_name : Heroin
+      short_name : gayyzxyx
     livefyre :
-      site_id : Heroin
+      site_id : gayyzxyx
     intensedebate :
-      account : Heroin
+      account : gayyzxyx
     facebook :
       appid : 123
       num_posts: 5
