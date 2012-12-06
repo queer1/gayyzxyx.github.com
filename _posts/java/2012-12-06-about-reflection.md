@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: 关于reflection
 category: java
