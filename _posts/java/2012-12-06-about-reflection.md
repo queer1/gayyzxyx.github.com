@@ -39,3 +39,23 @@ tags: [reflection, java]
 如果构造函数默认即不带参数类型，即可获取新实例完成初始化:
 
     per1 = (person)demo.newInstance()
+
+可以通过反射调用类中的方法，如果方法没有参数，如下：
+
+    public void sayName(){
+        <div class=""></div>
+    }
+    .......
+    try{
+        Method method = className.getMethod("sayName");
+        method.invoke(className.new Instance());
+    }catch(Exception e){}
+
+对于带参数的方法，在反射的时候要加上参数列表：
+
+    try{
+        Method method = className.getMethod("sayName",String.class,int.class);
+        method.invoke(className.new Instance(),"gayyzxyx",1234);
+    }catch(Exception e){}
+
+
