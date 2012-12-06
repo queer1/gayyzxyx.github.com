@@ -4,7 +4,9 @@ title: about reflection
 category: java
 tags: [reflection, java]
 ---
+
 用反射进行对象初始化的时候，可以参考构造函数，如果默认构造函数的参数不为空的话需要先取得全部构造函数，如下：
+
     try{
         demo = Class.forName("mymaven.untitled.person.person");
     }catch (Exception ex){
