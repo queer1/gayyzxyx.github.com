@@ -1,6 +1,6 @@
 ﻿---
 layout: post
-titile: 关于reflection
+titile: about reflection
 category: java
 tags: [reflection, java]
 ---
