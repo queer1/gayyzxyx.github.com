@@ -76,9 +76,7 @@ Bcount:6
 
 分析：
 	1.创建两个线程`LetterThread`和`NumberThread`分别用于控制字母和数字的输出
-
-	2.为了先输出一个字母然后输出两个数字，可以先让`LetterThread`处于等待状态，`NumberThread`唤醒`LetterThread`进行输出工作，此时`	NumberThread`处于等待状态
-
+	2.为了先输出一个字母然后输出两个数字，可以先让`LetterThread`处于等待状态，`NumberThread`唤醒`LetterThread`进行输出工作，此时`NumberThread`处于等待状态
 	3.`LetterThread`输出后，唤醒`NumberThread`进行数字的输出，然后`NumberThread`再次唤醒`LetterThread`，如此循环，便可以得到所需字符串
 
 `LetterThread`的实现：
