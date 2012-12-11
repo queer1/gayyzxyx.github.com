@@ -75,11 +75,8 @@ Bcount:6
 同时在使用Runnable接口的时候，还可以避免java的单继承限制。使用信号灯，还可以实现线程间的同步，借助Object类，实现线程间的等待与唤醒，如我们要得到如下字符串A12B34C56....Z5152，我们可以创建两个线程，分别输出字符串和数字。
 
 分析：
-
 	1.创建两个线程`LetterThread`和`NumberThread`分别用于控制字母和数字的输出
-
-	2.为了先输出一个字母然后输出两个数字，可以先让`LetterThread`处于等待状态，`NumberThread`唤醒`LetterThread`进行输出工作，此时`	NumberThread`处于等待状态
-
+	2.为了先输出一个字母然后输出两个数字，可以先让`LetterThread`处于等待状态，`NumberThread`唤醒`LetterThread`进行输出工作，此时`NumberThread`处于等待状态
 	3.`LetterThread`输出后，唤醒`NumberThread`进行数字的输出，然后`NumberThread`再次唤醒`LetterThread`，如此循环，便可以得到所需字符串
 
 `LetterThread`的实现：
