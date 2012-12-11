@@ -8,6 +8,7 @@ description: java多线程
 ---
 
 在java中实现多线程一般是通过两种手段，一是实现`Runnable`接口，还有就是继承`Thread`类，考虑到如果是继承`Thread`类，不适合具有相同代码的进程实现资源的共享，如下两个程序所示
+
 1.继承`Thread`
 
 <pre class="prettyprint linenums">
@@ -55,7 +56,6 @@ public class TempThreadRun implements Runnable {
         new Thread(tempThreadRun,"A").start();
         new Thread(tempThreadRun,"B").start();
         new Thread(tempThreadRun,"C").start();
-
     }
 }
 </pre>
