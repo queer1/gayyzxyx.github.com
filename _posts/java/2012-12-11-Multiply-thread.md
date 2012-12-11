@@ -48,7 +48,7 @@ count:1
 	    public void run(){
 	        for(int  i = 0;i < 100;i++)
 	            if(count>0){
-	                System.out.println(Thread.currentThread().getName()+"count:"+count--);
+	                &lt;System.out.println(Thread.currentThread().getName()+"count:"+count--);&gt;
 	            }
 	    }
 	    public static void main(String args[]){
