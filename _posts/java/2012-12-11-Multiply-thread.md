@@ -76,69 +76,67 @@ Bcount:6
 
 分析：
 	1.创建两个线程`LetterThread`和`NumberThread`分别用于控制字母和数字的输出
+
 	2.为了先输出一个字母然后输出两个数字，可以先让`LetterThread`处于等待状态，`NumberThread`唤醒`LetterThread`进行输出工作，此时`	NumberThread`处于等待状态
+
 	3.`LetterThread`输出后，唤醒`NumberThread`进行数字的输出，然后`NumberThread`再次唤醒`LetterThread`，如此循环，便可以得到所需字符串
 
 `LetterThread`的实现：
 
-<pre class="prettyprint linenums">
-public class LetterThread implements Runnable {
-    private Object _lock;
-    LetterThread(Object lock) {
-        _lock = lock;
-    }
-    public void run() {
+	public class LetterThread implements Runnable {
+	    private Object _lock;
+	    LetterThread(Object lock) {
+	        _lock = lock;
+	    }
+	    public void run() {
 
-        synchronized (_lock) {
-            for (int i = 0; i < 26; i++) {
-                try {
-                    _lock.wait();
-                } catch (InterruptedException ie) {
-                    ie.printStackTrace();
-                }
-                System.out.print((char) ('A' + i));
-                _lock.notify();
-            }
+	        synchronized (_lock) {
+	            for (int i = 0; i < 26; i++) {
+	                try {
+	                    _lock.wait();
+	                } catch (InterruptedException ie) {
+	                    ie.printStackTrace();
+	                }
+	                System.out.print((char) ('A' + i));
+	                _lock.notify();
+	            }
 
-        }
-    }
-}
-</pre>
+	        }
+	    }
+	}
 
 `NumberThread`的实现：
 
-<pre class="prettyprint linenums">
-public class NumberThread implements Runnable {
-    private Object _lock;
-    public NumberThread(Object lock) {
-        _lock = lock;
-    }
-    public void run() {
-        try {
+	public class NumberThread implements Runnable {
+	    private Object _lock;
+	    public NumberThread(Object lock) {
+	        _lock = lock;
+	    }
+	    public void run() {
+	        try {
 
-            synchronized (_lock) {
-                for (int i = 0; i < 26; i++) {
-                    _lock.notify();
-                    _lock.wait();
-                    System.out.print((2 * i + 1) + "" + (2 * i + 2));
-                }
-                _lock.notify();
-            }
-        } catch (InterruptedException ie) {
-            ie.printStackTrace();
-        }
+	            synchronized (_lock) {
+	                for (int i = 0; i < 26; i++) {
+	                    _lock.notify();
+	                    _lock.wait();
+	                    System.out.print((2 * i + 1) + "" + (2 * i + 2));
+	                }
+	                _lock.notify();
+	            }
+	        } catch (InterruptedException ie) {
+	            ie.printStackTrace();
+	        }
 
-    }
+	    }
 
-    public static void main(String args[]) {
-        Object lock = new Object();
-        Thread letterThread = new Thread(new LetterThread(lock));
-        Thread numberThread = new Thread(new NumberThread(lock));
-        letterThread.start();
-        numberThread.start();
-    }
-}
-</pre>
+	    public static void main(String args[]) {
+	        Object lock = new Object();
+	        Thread letterThread = new Thread(new LetterThread(lock));
+	        Thread numberThread = new Thread(new NumberThread(lock));
+	        letterThread.start();
+	        numberThread.start();
+	    }
+	}
 
 结果如下：
 
