@@ -40,7 +40,7 @@ count:2
 count:1
 </pre>
 
-2.实现`Runnable1接口
+2.实现`Runnable1`接口
 <pre class="prettyprint linenums">
 public class TempThreadRun implements Runnable {
     private int count = 7;
