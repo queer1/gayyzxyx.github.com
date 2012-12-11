@@ -43,7 +43,6 @@ count:1
 
 实现`Runnable1`接口
 
-<pre class="prettyprint linenums">
 	public class TempThreadRun implements Runnable {
 	    private int count = 7;
 	    public void run(){
@@ -59,7 +58,7 @@ count:1
 	        new Thread(tempThreadRun,"C").start();
 	    }
 	}
-</pre>
+
 
 输出结果：
 
