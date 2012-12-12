@@ -1,5 +1,6 @@
 ---
 layout: post
+codes: [java]
 title: JAVA多线程
 category: java
 tags: [java, thread]
@@ -41,24 +42,25 @@ count:2
 count:1
 </pre>
 
-实现`Runnable1`接口
+实现`Runnable`接口
 
-	public class TempThreadRun implements Runnable {
-	    private int count = 7;
-	    public void run(){
-	        for(int  i = 0;i < 100;i++)
-	            if(count>0){
-	                System.out.println(Thread.currentThread().getName()+"count:"+count--);
-	            }
-	    }
-	    public static void main(String args[]){
-	        TempThreadRun tempThreadRun = new TempThreadRun();
-	        new Thread(tempThreadRun,"A").start();
-	        new Thread(tempThreadRun,"B").start();
-	        new Thread(tempThreadRun,"C").start();
-	    }
+<pre class="prettyprint linenums">
+public class TempThreadRun implements Runnable {
+	private int count = 7;
+	public void run(){
+	for(int  i = 0;i &lt; 100;i++)
+	        if(count>0){
+	            System.out.println(Thread.currentThread().getName()+"count:"+count--);
+	        }
 	}
-
+	public static void main(String args[]){
+	    TempThreadRun tempThreadRun = new TempThreadRun();
+	    new Thread(tempThreadRun,"A").start();
+	    new Thread(tempThreadRun,"B").start();
+	    new Thread(tempThreadRun,"C").start();
+	}
+}
+</pre>
 
 输出结果：
 
@@ -81,15 +83,15 @@ Bcount:6
 
 `LetterThread`的实现：
 
+<pre class="prettyprint linenums">
 	public class LetterThread implements Runnable {
 	    private Object _lock;
 	    LetterThread(Object lock) {
 	        _lock = lock;
 	    }
 	    public void run() {
-
 	        synchronized (_lock) {
-	            for (int i = 0; i < 26; i++) {
+	            for (int i = 0; i &lt; 26; i++) {
 	                try {
 	                    _lock.wait();
 	                } catch (InterruptedException ie) {
@@ -98,13 +100,14 @@ Bcount:6
 	                System.out.print((char) ('A' + i));
 	                _lock.notify();
 	            }
-
 	        }
 	    }
 	}
+</pre>
 
 `NumberThread`的实现：
 
+<pre class="prettyprint linenums">
 	public class NumberThread implements Runnable {
 	    private Object _lock;
 	    public NumberThread(Object lock) {
@@ -112,9 +115,8 @@ Bcount:6
 	    }
 	    public void run() {
 	        try {
-
 	            synchronized (_lock) {
-	                for (int i = 0; i < 26; i++) {
+	                for (int i = 0; i &lt; 26; i++) {
 	                    _lock.notify();
 	                    _lock.wait();
 	                    System.out.print((2 * i + 1) + "" + (2 * i + 2));
@@ -124,9 +126,7 @@ Bcount:6
 	        } catch (InterruptedException ie) {
 	            ie.printStackTrace();
 	        }
-
 	    }
-
 	    public static void main(String args[]) {
 	        Object lock = new Object();
 	        Thread letterThread = new Thread(new LetterThread(lock));
@@ -135,6 +135,7 @@ Bcount:6
 	        numberThread.start();
 	    }
 	}
+</pre>
 
 结果如下：
 
