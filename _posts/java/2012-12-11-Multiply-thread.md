@@ -43,22 +43,24 @@ count:1
 
 实现`Runnable1`接口
 
-	public class TempThreadRun implements Runnable {
-	    private int count = 7;
-	    public void run(){
-	        for(int  i = 0;i < 100;i++)
-	            if(count>0){
-	                System.out.println(Thread.currentThread().getName()+"count:"+count--);
-	            }
-	    }
-	    public static void main(String args[]){
-	        TempThreadRun tempThreadRun = new TempThreadRun();
-	        new Thread(tempThreadRun,"A").start();
-	        new Thread(tempThreadRun,"B").start();
-	        new Thread(tempThreadRun,"C").start();
-	    }
+	
+<pre class="prettyprint linenums">
+public class TempThreadRun implements Runnable {
+	private int count = 7;
+	public void run(){
+	for(int  i = 0;i < 100;i++)
+	        if(count>0){
+	            System.out.println(Thread.currentThread().getName()+"count:"+count--);
+	        }
 	}
-
+	public static void main(String args[]){
+	    TempThreadRun tempThreadRun = new TempThreadRun();
+	    new Thread(tempThreadRun,"A").start();
+	    new Thread(tempThreadRun,"B").start();
+	    new Thread(tempThreadRun,"C").start();
+	}
+}
+</pre>
 
 输出结果：
 
