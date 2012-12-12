@@ -12,67 +12,60 @@ description: java多线程
 
 继承`Thread`
 
-<pre class="prettyprint linenums">
-public class TempThread extends Thread {
-    private int count = 4;
-    public void run(){
-        while(count>0){
-            System.out.println("count:"+count);
-            count--;
-        }
-    }
-    public static void main(String args[]){
-        TempThread tempThread1 = new TempThread();
-        TempThread tempThread2 = new TempThread();
-        tempThread1.start();
-        tempThread2.start();
-    }
-}
-</pre>
+	public class TempThread extends Thread {
+	    private int count = 4;
+	    public void run(){
+	        while(count>0){
+	            System.out.println("count:"+count);
+	            count--;
+	        }
+	    }
+	    public static void main(String args[]){
+	        TempThread tempThread1 = new TempThread();
+	        TempThread tempThread2 = new TempThread();
+	        tempThread1.start();
+	        tempThread2.start();
+	    }
+	}
 
 输出结果：
-<pre class="prettyprint linenums">
-count:4
-count:3
-count:2
-count:1
-count:4
-count:3
-count:2
-count:1
-</pre>
+
+	count:4
+	count:3
+	count:2
+	count:1
+	count:4
+	count:3
+	count:2
+	count:1
 
 实现`Runnable`接口
 
-<pre class="prettyprint linenums">
-public class TempThreadRun implements Runnable {
-	private int count = 7;
-	public void run(){
-	for(int  i = 0;i &lt; 100;i++)
-	        if(count>0){
-	            System.out.println(Thread.currentThread().getName()+"count:"+count--);
-	        }
+	public class TempThreadRun implements Runnable {
+		private int count = 7;
+		public void run(){
+		for(int  i = 0;i &lt; 100;i++)
+		        if(count>0){
+		            System.out.println(Thread.currentThread().getName()+"count:"+count--);
+		        }
+		}
+		public static void main(String args[]){
+		    TempThreadRun tempThreadRun = new TempThreadRun();
+		    new Thread(tempThreadRun,"A").start();
+		    new Thread(tempThreadRun,"B").start();
+		    new Thread(tempThreadRun,"C").start();
+		}
 	}
-	public static void main(String args[]){
-	    TempThreadRun tempThreadRun = new TempThreadRun();
-	    new Thread(tempThreadRun,"A").start();
-	    new Thread(tempThreadRun,"B").start();
-	    new Thread(tempThreadRun,"C").start();
-	}
-}
-</pre>
 
 输出结果：
 
-<pre class="prettyprint linenums">
-Acount:7
-Acount:4
-Acount:3
-Acount:2
-Acount:1
-Ccount:5
-Bcount:6
-</pre>
+	Acount:7
+	Acount:4
+	Acount:3
+	Acount:2
+	Acount:1
+	Ccount:5
+	Bcount:6
 
 同时在使用Runnable接口的时候，还可以避免java的单继承限制。使用信号灯，还可以实现线程间的同步，借助Object类，实现线程间的等待与唤醒，如我们要得到如下字符串A12B34C56....Z5152，我们可以创建两个线程，分别输出字符串和数字。
 
@@ -83,7 +76,6 @@ Bcount:6
 
 `LetterThread`的实现：
 
-<pre class="prettyprint linenums">
 	public class LetterThread implements Runnable {
 	    private Object _lock;
 	    LetterThread(Object lock) {
@@ -103,11 +95,10 @@ Bcount:6
 	        }
 	    }
 	}
-</pre>
+
 
 `NumberThread`的实现：
 
-<pre class="prettyprint linenums">
 	public class NumberThread implements Runnable {
 	    private Object _lock;
 	    public NumberThread(Object lock) {
@@ -135,7 +126,7 @@ Bcount:6
 	        numberThread.start();
 	    }
 	}
-</pre>
+
 
 结果如下：
 
