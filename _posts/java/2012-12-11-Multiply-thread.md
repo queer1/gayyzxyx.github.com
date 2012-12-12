@@ -41,9 +41,8 @@ count:2
 count:1
 </pre>
 
-实现`Runnable1`接口
+实现`Runnable`接口
 
-	
 <pre class="prettyprint linenums">
 public class TempThreadRun implements Runnable {
 	private int count = 7;
@@ -89,7 +88,6 @@ Bcount:6
 	        _lock = lock;
 	    }
 	    public void run() {
-
 	        synchronized (_lock) {
 	            for (int i = 0; i < 26; i++) {
 	                try {
@@ -100,7 +98,6 @@ Bcount:6
 	                System.out.print((char) ('A' + i));
 	                _lock.notify();
 	            }
-
 	        }
 	    }
 	}
@@ -114,7 +111,6 @@ Bcount:6
 	    }
 	    public void run() {
 	        try {
-
 	            synchronized (_lock) {
 	                for (int i = 0; i < 26; i++) {
 	                    _lock.notify();
@@ -126,9 +122,7 @@ Bcount:6
 	        } catch (InterruptedException ie) {
 	            ie.printStackTrace();
 	        }
-
 	    }
-
 	    public static void main(String args[]) {
 	        Object lock = new Object();
 	        Thread letterThread = new Thread(new LetterThread(lock));
