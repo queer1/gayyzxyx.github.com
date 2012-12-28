@@ -66,9 +66,9 @@ output:
 
 	i   good boy
 
-其作用跟直接删除参数[,deletechars]中出现字符一样效果
+其作用跟直接删除参数`[,deletechars]`中出现字符一样效果
 
-接下来一个用一个例子完结，这是pythonchallenge上一个有意思的题目。给我们一个字符串，我们将每个字符向后位移两个字符的距离，如果是y位移两个后就变成了a,如果是z位移两个后就变成了b，以此类推。此种问题就可以借助string.maketrans(from,to)完成，from是原256个字符串的模板，目标模板是from[2:]+from[:2]，如abcd位移后是cdab
+接下来一个用一个例子完结，这是pythonchallenge上一个有意思的题目。给我们一个字符串，我们将每个字符向后位移两个字符的距离，如果是y位移两个后就变成了a,如果是z位移两个后就变成了b，以此类推。此种问题就可以借助string.maketrans(from,to)完成，from是原256个字符串的模板，目标模板是`from[2:]+from[:2]`，如abcd位移后是cdab
 
 	s = """g fmnc wms bgblr rpylqjyrc gr zw fylb. rfyrq ufyr amknsrcpq ypc dmp. bmgle gr gl zw fylb gq
 	glcddgagclr ylb rfyr'q ufw rfgq rcvr gq qm jmle. sqgle qrpgle.kyicrpylq() gq pcamkkclbcb. lmu
