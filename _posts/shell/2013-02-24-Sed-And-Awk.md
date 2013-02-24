@@ -83,7 +83,7 @@ keywords: shell, sed, awk
 
 本次用到的测试文本如下：
 
-	 	This is a Certificate Request file:
+	This is a Certificate Request file:
 	It should be mailed to yao.rid@gmail.com
 
 	========================================
@@ -96,3 +96,23 @@ keywords: shell, sed, awk
 
 
 #### 1.sed的-n选项
+
+使用`-n`选项和不使用的区别是：使用后只输出匹配行，不使用的话输出所有行：
+
+	#使用了-n选项，只打印第一行
+	root@core /home/sed# sed -n '1p' input
+	This is a Certificate Request file:
+	#没使用-n选项，不仅打印第一行，还打印所有行
+	root@core /home/sed# sed '1p' input
+	This is a Certificate Request file:
+	This is a Certificate Request file:
+	It should be mailed to yao.rid@gmail.com
+	
+	========================================
+	Certificate Subject:
+	
+	/O=Grid/OU=GlobusTest/OU=simpleCA-seugrid1.seu.edu.cn/OU=seu.edu.cn/CN=globus
+	.......
+	root@core /home/sed#
+
+
