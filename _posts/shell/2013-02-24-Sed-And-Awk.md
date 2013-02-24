@@ -19,4 +19,5 @@ keywords: shell, sed, awk
 调用`sed`的三种方式：
 
 1.	在`shell`命令中调用`sed`：
+
 	sed [选项] 'sed命令' 输入文件
