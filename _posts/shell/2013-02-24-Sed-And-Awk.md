@@ -115,4 +115,38 @@ keywords: shell, sed, awk
 	.......
 	root@core /home/sed#
 
+在参数p前面可以加上正则表达式控制打印范围，如下：
+
+	#查找Certificate所在行，共有两处
+	root@core /home/sed# sed -n '/Certificate/p' input
+	This is a Certificate Request file:
+	Certificate Subject:
+	#打印2到5行
+	root@core /home/sed# sed -n '2,5p' input
+	It should be mailed to yao.rid@gmail.com
+	
+	========================================
+	Certificate Subject:
+
+### 2.sed的-e选项
+
+使用'-e`选项可以同时执行多个sed编辑命令，比如我们要同时打印出匹配行和匹配行所在的行号，就需要向`sed`传递`p`和`=`两个指令，如下：
+
+	#打印匹配行号
+	root@core /home/sed# sed -n '/Certificate/=' input
+	1
+	5
+	#打印匹配行号并且将匹配行打印出来
+	root@core /home/sed# sed -n -e '/Certificate/=' -e '/Certificate/p' input
+	1
+	This is a Certificate Request file:
+	5
+	Certificate Subject:
+	#这条命令和上面等价，只是将命令组用{}括起来
+	root@core /home/sed# sed -n '/Certificate/{=;p}' input
+	1
+	This is a Certificate Request file:
+	5
+	Certificate Subject:
+
 
