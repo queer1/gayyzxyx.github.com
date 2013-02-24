@@ -85,12 +85,12 @@ keywords: shell, sed, awk
 
 	This is a Certificate Request file:
 	It should be mailed to yao.rid@gmail.com
-
+	
 	========================================
 	Certificate Subject:
-
+	
 	/O=Grid/OU=GlobusTest/OU=simpleCA-seugrid1.seu.edu.cn/OU=seu.edu.cn/CN=globus
-
+	
 	Te above string is known as your user certificate subject, and it uniquely identifies this user. $88
 	To install this user certificate, please save this e-mail message into the following file.
 
@@ -130,7 +130,7 @@ keywords: shell, sed, awk
 
 ### 2.sed的-e选项
 
-使用'-e`选项可以同时执行多个sed编辑命令，比如我们要同时打印出匹配行和匹配行所在的行号，就需要向`sed`传递`p`和`=`两个指令，如下：
+使用`-e`选项可以同时执行多个sed编辑命令，比如我们要同时打印出匹配行和匹配行所在的行号，就需要向`sed`传递`p`和`=`两个指令，如下：
 
 	#打印匹配行号
 	root@core /home/sed# sed -n '/Certificate/=' input
@@ -148,5 +148,82 @@ keywords: shell, sed, awk
 	This is a Certificate Request file:
 	5
 	Certificate Subject:
+
+### 3.sed的基本编辑命令的i\命令
+
+插入文本的基本格式为：
+	
+	sed 'specified-address i\text' input-file
+
+新建名字为insert.sed的脚本文件如下：
+
+	root@core /home/sed# cat insert.sed
+	#!/bin/sed -f
+	/file:/i\
+	we insert a new line
+
+接着执行insert.sed脚本，并加上input作为文件名参数，于是在于`file:`的匹配上方加入了新文本：
+
+	root@core /home/sed# ./insert.sed  input
+	we insert a new line                         #被插入的新文本
+	This is a Certificate Request file:
+	It should be mailed to yao.rid@gmail.com
+	
+	========================================
+	Certificate Subject:
+	
+	/O=Grid/OU=GlobusTest/OU=simpleCA-seugrid1.seu.edu.cn/OU=seu.edu.cn/CN=globus
+	
+	Te above string is known as your user certificate subject, and it uniquely identifies this user. $88
+	To install this user certificate, please save this e-mail message into the following file.
+
+### 4.sed的基本编辑命令c\命令
+
+这个是将匹配的文本用新文本替换，修改文本的格式为：
+
+	sed 'specified-address c\text' input-file
+
+新建一个修改文本的脚本命名为`modify.sed`，内容如下：
+
+	root@core /home/sed# cat > modify.sed
+	#!/bin/sed -f
+	/file:/c\
+	we midify this line.
+
+意思是将file:关键字出现的那一行替换为we modify this line.
+
+	root@core /home/sed# chmod u+x modify.sed
+	root@core /home/sed# ./modify.sed input
+	we midify this line.                             #整个行被替换后的结果
+	It should be mailed to yao.rid@gmail.com
+	
+	========================================
+	Certificate Subject:
+	
+	/O=Grid/OU=GlobusTest/OU=simpleCA-seugrid1.seu.edu.cn/OU=seu.edu.cn/CN=globus
+	
+	Te above string is known as your user certificate subject, and it uniquely identifies this user. $88
+	To install this user certificate, please save this e-mail message into the following file.
+
+### 5.sed的基本编辑命令d命令
+
+sed的删除命令是指定范围内的删除，格式如下：
+
+	sed 'specified-address d' input
+
+删除第一行
+
+	root@core /home/sed# sed '1d' input
+	It should be mailed to yao.rid@gmail.com
+	
+	========================================
+	Certificate Subject:
+
+删除最后一行
+
+	root@core /home/sed# sed '$d' input
+	......            #多于的被省略
+	
+	Te above string is known as your user certificate subject, and it uniquely identifies this user. $88
 
 
