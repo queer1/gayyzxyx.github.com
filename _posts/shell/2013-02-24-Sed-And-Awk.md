@@ -21,3 +21,20 @@ keywords: shell, sed, awk
 ### 1.在`shell`命令中调用`sed`：
 
 	sed [选项] 'sed命令' 输入文件
+
+### 2.将`sed`命令插入脚本文件，然后通过`sed`命令来调用：
+
+	sed [选项] -f sed脚本文件 输入文件
+
+### 3.将`sed`插入脚本文件，这是该脚本为可执行，以`#!`符号开头：
+
+	./sed 脚本文件 输入文件
+
+### `sed`命令选项及其意义：
+
+<table class="table table-bordered table-striped">
+    <tr><td>选项</td><td>意义</td></tr>
+    <tr><td>-n</td><td>不打印所有行到标准输出</td></tr>
+    <tr><td>-e</td><td>表示将下一个字符串解析为sed编辑命令，如果只传递一个编辑命令给sed，-e选项可以省略</td></tr>
+    <tr><td>-f</td><td>表示正在调用sed脚本文件</td></tr>
+</table>
