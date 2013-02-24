@@ -226,4 +226,23 @@ sed的删除命令是指定范围内的删除，格式如下：
 	
 	Te above string is known as your user certificate subject, and it uniquely identifies this user. $88
 
+还可以根据正则表达式删除匹配行，如
+
+	sed '4,$d' input                    #删除第四行到最后一行
+	sed '/Certificate/d' input          #删除带有Certificate的所有行
+
+### 6.sed的基本编辑命令s命令
+
+sed替换文本操作将匹配的文本行利用新文本替换，其命令的为`s`，替换文本的格式如下：
+
+	sed 's/replaced-string/new-string/[option]' input-file
+
+`s`表示的是替换文本的操作，`sed`命令首先匹配被替换的字符串，匹配成功后用新字符串替换它，替换选项`option`对替换操作进一步细化，如下：
+
+<table class="table table-bordered table-striped">
+    <tr><td>选项</td><td>意义</td></tr>
+    <tr><td>g</td><td>表示替换文本中所有出现被替换字符串之处，即替换全部</td></tr>
+    <tr><td>p</td><td>与-n选项结合，只打印替换行</td></tr>
+    <tr><td>w file-name</td><td>表示将输出定向到另一个文件</td></tr>
+</table>
 
