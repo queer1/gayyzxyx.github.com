@@ -30,11 +30,51 @@ keywords: shell, sed, awk
 
 	./sed 脚本文件 输入文件
 
-### `sed`命令选项及其意义：
+### sed命令选项及其意义：
 
 <table class="table table-bordered table-striped">
     <tr><td>选项</td><td>意义</td></tr>
     <tr><td>-n</td><td>不打印所有行到标准输出</td></tr>
     <tr><td>-e</td><td>表示将下一个字符串解析为sed编辑命令，如果只传递一个编辑命令给sed，-e选项可以省略</td></tr>
     <tr><td>-f</td><td>表示正在调用sed脚本文件</td></tr>
+</table>
+
+使用`sed`先定位文本行然后再执行编辑命令，`sed`使用以下方式定位文本行，正则表达式表示很好用。
+
+### sed命令定位文本的方法
+
+<table class="table table-bordered table-striped">
+    <tr><td>选项</td><td>意义</td></tr>
+    <tr><td>x</td><td>x指定行号</td></tr>
+    <tr><td>x,y</td><td>从x到y行之间的范围</td></tr>
+    <tr><td>/pattern/</td><td>查询包含pattern匹配的行</td></tr>
+    <tr><td>/pattern/pattern/</td><td>查询两个表达式之间的行</td></tr>
+    <tr><td>/pattern/,x</td><td>从pattern匹配行开始到x号行结束</td></tr>
+    <tr><td>x,/pattern/</td><td>从x行号开始匹配到pattern匹配行结束</td></tr>
+    <tr><td>x,y!</td><td>查询不包括x和y行号的行</td></tr>
+</table>
+
+`sed`编辑命令对文本进行打印、删除、追加、插入、替换等操作，其提供了极为丰富的编辑命令，下面是一些常用的编辑命令
+
+<table class="table table-bordered table-striped">
+    <tr><td>选项</td><td>意义</td></tr>
+    <tr><td>p</td><td>打印匹配行</td></tr>
+    <tr><td>=</td><td>打印文件行号</td></tr>
+    <tr><td>a\</td><td>在定位行号之后追加文本信息</td></tr>
+    <tr><td>i\</td><td>在定位行号之前插入文本信息</td></tr>
+    <tr><td>d</td><td>删除定位行</td></tr>
+    <tr><td>c\</td><td>用新文本替换定位文本</td></tr>
+    <tr><td>s</td><td>使用替换模式替换相应模式</td></tr>
+    <tr><td>r</td><td>从另一个文件中读文本</td></tr>
+    <tr><td>w</td><td>将文本写到一个文件，功能等同重定向 > </td></tr>
+    <tr><td>y</td><td>变换字符</td></tr>
+    <tr><td>q</td><td>第一个模式匹配完成后退出</td></tr>
+    <tr><td>l</td><td>显示与八进制ASCII码等价的控制字符</td></tr>
+    <tr><td>{}</td><td>在定位行执行命令组，功能等同命令选项的-e</td></tr>
+    <tr><td>n</td><td>读取下一个输入行，用下一个命令处理新的行</td></tr>
+    <tr><td>h</td><td>将模式缓冲区的文本复制到保持缓冲区</td></tr>
+    <tr><td>H</td><td>将模式缓冲区的文本追加到保持缓冲区</td></tr>
+    <tr><td>x</td><td>互换模式缓冲区和保持缓冲区的内容</td></tr>
+    <tr><td>g</td><td>将保持缓冲区的内容复制到模式缓冲区中</td></tr>
+    <tr><td>G</td><td>将保持缓冲区的内容追加到模式缓冲区中</td></tr>
 </table>
