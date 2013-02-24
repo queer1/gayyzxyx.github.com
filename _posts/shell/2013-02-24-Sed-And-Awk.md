@@ -78,3 +78,21 @@ keywords: shell, sed, awk
     <tr><td>g</td><td>将保持缓冲区的内容复制到模式缓冲区中</td></tr>
     <tr><td>G</td><td>将保持缓冲区的内容追加到模式缓冲区中</td></tr>
 </table>
+
+### 详解各选项
+
+本次用到的测试文本如下：
+
+	 	This is a Certificate Request file:
+	It should be mailed to yao.rid@gmail.com
+
+	========================================
+	Certificate Subject:
+
+	/O=Grid/OU=GlobusTest/OU=simpleCA-seugrid1.seu.edu.cn/OU=seu.edu.cn/CN=globus
+
+	Te above string is known as your user certificate subject, and it uniquely identifies this user. $88
+	To install this user certificate, please save this e-mail message into the following file.
+
+
+#### 1.sed的-n选项
