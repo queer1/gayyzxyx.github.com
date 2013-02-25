@@ -246,3 +246,50 @@ sed替换文本操作将匹配的文本行利用新文本替换，其命令的�
     <tr><td>w file-name</td><td>表示将输出定向到另一个文件</td></tr>
 </table>
 
+默认情况下，sed s命令后将替换后的文本全部输出，如果要求只打印替换行，需要结合`-n`和`p`选项，如下：
+
+	sed -n 's/replaced-string/new-string/p' input-file
+
+需要注意的是如果缺少`p`选项将不会打印任何内容，这和前面说的`-n`打印所有内容有点出入
+
+	root@core /home/sed# sed -n 's/Certificate/CERTIFICATE/p' input    
+	This is a CERTIFICATE Request file:
+	CERTIFICATE Subject:
+	root@core /home/sed# sed -n 's/Certificate/CERTIFICATE/' input   #不带p，不打印任何内容
+	root@core /home/sed#
+
+从上面可以看到只要是出现了Certificate的都被替换成了CERTIFICATE，这样看是否'g'选项就没用了呢？不是的，`g`选项的作用是使得每一行中每次出现的关键字都被替换，如果不带`g`选项则表示替换当前行第一次出现的关键字，然后再跳到下一个匹配行，通过一个例子来说说明：
+
+	root@core /home/sed# sed  -n 's/seu/gayyzxyx/p' input  #不带g，发现下面一行的只有一个seu被替换成了gayyzxyx
+	/O=Grid/OU=GlobusTest/OU=simpleCA-gayyzxyxgrid1.seu.edu.cn/OU=seu.edu.cn/CN=globus
+	root@core /home/sed# sed  -n 's/seu/gayyzxyx/pg' input   #带上g，一行中的所有ser被替换成了gayyzxyx
+	/O=Grid/OU=GlobusTest/OU=simpleCA-gayyzxyxgrid1.gayyzxyx.edu.cn/OU=gayyzxyx.edu.cn/CN=globus
+	root@core /home/sed#
+
+所以当一行文本中，**出现了一次以上的关键字，这时的`g`选项才会有作用**
+sed的替换命令还可以指定替换第几次匹配的关键字，只需要在替换选项上加上相应的数字即可，数字范围需要在1~512之间：
+
+	root@core /home/sed# sed  -n 's/seu/gayyzxyx/2p' input
+	/O=Grid/OU=GlobusTest/OU=simpleCA-seugrid1.gayyzxyx.edu.cn/OU=seu.edu.cn/CN=globus
+
+可以理解，当参数`p`前面不加数字时，之所以为只匹配一行中第一次出现的位置，是因为默认就是1，所以只匹配第一个出现的位置。
+
+`w`选项好理解，表示将输出定向到指定文件，如果输出文件还没有建立，sed就自动建立输出文件。
+
+	root@core /home/sed# sed  -n 's/seu/gayyzxyx/w output' input
+	root@core /home/sed# cat output
+	/O=Grid/OU=GlobusTest/OU=simpleCA-gayyzxyxgrid1.seu.edu.cn/OU=seu.edu.cn/CN=globus
+
+在sed文本替换中经常会使用到`&`符号，表示保存被资环的字符串以供调用，下面是两条等价的命令：
+
+	root@core /home/sed# sed -n 's/seu/XX&/pg' input    #都是将seu替换为XXseu
+	/O=Grid/OU=GlobusTest/OU=simpleCA-XXseugrid1.XXseu.edu.cn/OU=XXseu.edu.cn/CN=globus
+	root@core /home/sed# sed -n 's/seu/XXseu/pg' input
+	/O=Grid/OU=GlobusTest/OU=simpleCA-XXseugrid1.XXseu.edu.cn/OU=XXseu.edu.cn/CN=globus
+
+### 7.sed基本编辑命令w命令
+
+由于sed命令指示对缓冲区的内容进行编辑，如果需要保存结果，需要将编辑后的文本重定向到另一个文件，使用写入符号`w`，基本格式为:
+
+	sed  'specified-address w output-file' input-file
+
