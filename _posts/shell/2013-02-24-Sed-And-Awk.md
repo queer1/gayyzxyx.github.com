@@ -293,3 +293,92 @@ sed的替换命令还可以指定替换第几次匹配的关键字，只需要�
 
 	sed  'specified-address w output-file' input-file
 
+`w`的用法与`sed`替换文本中的`w`选项相似：
+
+	root@core /home/sed# sed -n '1,$ w output' input  #将input的1到最后一行输出到output
+	root@core /home/sed# cat output                   #查看output
+	This is a Certificate Request file:
+	It should be mailed to yao.rid@gmail.com
+	
+	......   #省略很多行
+
+同时也可以通过正则表达式输出匹配行到新文件中，如：
+
+	root@core /home/sed# sed -n '/Certificate/ w output' input
+	root@core /home/sed# cat output
+	This is a Certificate Request file:
+	Certificate Subject:
+
+也可以通过重定向完成：
+
+	root@core /home/sed# sed -n '/Certificate/p' input > output
+
+### 7.sed基本编辑命令r命令
+
+sed命令可以将其他文件中的文本读入，并附加在指定地址之后，sed读入文件的符号位`r`，基本格式为：
+
+	sed 'specified-address r file-name' input-file
+
+将Certificate后面加上以下otherfile中的内容：
+
+	root@core /home/sed# cat > otherfile                #创建otherfile
+	This is the first line of the otherfile.
+	This is the second line of the otherfile.
+	root@core /home/sed# sed '/Certificate/r otherfile' input    #追加
+	This is a Certificate Request file:
+	This is the first line of the otherfile.       #追加行
+	This is the second line of the otherfile.
+	It should be mailed to yao.rid@gmail.com
+	
+	========================================
+	Certificate Subject:
+	This is the first line of the otherfile.           #追加行
+	This is the second line of the otherfile.
+	
+	...........................                   #省略行
+
+### 8.sed基本编辑命令的q命令
+
+sed的`q`选项表示完成指定地址的匹配后立即退出，基本格式为
+
+	sed 'specified-address q' input-file
+
+比如打印前五行然后退出：
+
+	sed '5 q' input
+
+和'p'命令的区别是：`p`命令是打印出匹配的所有行，而`q`是打印匹配的第一行
+
+	root@core /home/sed# sed -n '/Certificate/p' input
+	This is a Certificate Request file:
+	Certificate Subject:
+	root@core /home/sed# sed '/Certificate/q' input
+	This is a Certificate Request file:
+
+### 9.sed基本编辑命令的y命令
+
+sed的`y`，命令表示字符变换，类似python的`string.maketrans()`，变换与被变换字符等长，格式如下：
+
+	sed 'y/old-string/new-string/' input-file
+
+比如将input文件中的1变A，2变B，3变C，4变D：
+
+	sed 'y/1234/ABCD' input
+
+### 10.sed基本编辑命令的l命令
+
+sed打印控制字符，如退格键、F1键、shift键等，如果在文件中包含这么键，用`sed l`命令便可以打印出，如：
+
+	sed -n '1,$l' input
+
+### 10.sed基本编辑命令的{}命令
+
+用`{}`将多条命令括起来组成一个命令组，与`-e`选项类似，如下面三条命令等价：
+
+	root@core /home/sed# sed -n -e '/Certificate/p' -e '/Certificate/=' input
+	root@core /home/sed# sed -n '/Certificate/{p;=}' input
+	root@core /home/sed# sed -n '/Certificate/p;/Certificate/=' input
+
+
+
+
