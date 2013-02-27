@@ -379,6 +379,42 @@ sed打印控制字符，如退格键、F1键、shift键等，如果在文件中�
 	root@core /home/sed# sed -n '/Certificate/{p;=}' input
 	root@core /home/sed# sed -n '/Certificate/p;/Certificate/=' input
 
+### 10.sed基本编辑命令的n命令
+
+sed编辑命令`n`的意义是读取下一个输入行，用`n`后面的一个命令处理该行，由于此时一般都有多个编辑命令，所以通常需要与`{}`符号结合使用。下面一个例子是找出certificate关键字的匹配行，然后在匹配行的下一行执行将ll字符串替换成99.
+
+	root@core /home/sed# sed '/certificate/{n;s/ll/99/}' input
+	This is a Certificate Request file:
+	It should be mailed to yao.rid@gmail.com
+	
+	========================================
+	Certificate Subject:
+	
+	/O=Grid/OU=GlobusTest/OU=simpleCA-seugrid1.seu.edu.cn/OU=seu.edu.cn/CN=globus
+	
+	Te above string is known as your user certificate subject, and it uniquely identifies this user. $88
+	To insta99 this user certificate, please save this e-mail message into the following file.  #原来是install,现在是insta99
+
+### 11.sed基本编辑命令的h,x,g命令
+
+sed有两种缓冲区，一种是模式缓冲区(Pattern Buffer)另一种是保持缓冲区(Hold Buffer),保持缓冲区是另一块内存空间，sed的一些命令可以对保持缓冲区进行修改并与模式缓冲区的内容互换。
+
+	root@core /home/sed# sed -e '/Subject/h' -e '/seugrid/x' -e '$G' input
+	This is a Certificate Request file:
+	It should be mailed to yao.rid@gmail.com
+	
+	========================================
+	Certificate Subject:    #匹配Subject，将此行写入保持缓冲区
+	
+	Certificate Subject:   #匹配seugrid，将此行写入保持缓冲区，并将原来保持缓冲区的内容输出
+	
+	Te above string is known as your user certificate subject, and it uniquely identifies this user. $88
+	To install this user certificate, please save this e-mail message into the following file.
+	/O=Grid/OU=GlobusTest/OU=simpleCA-seugrid1.seu.edu.cn/OU=seu.edu.cn/CN=globus
+	#到最后一行时，输出保持缓冲区的内容	
+
+
+
 
 
 
