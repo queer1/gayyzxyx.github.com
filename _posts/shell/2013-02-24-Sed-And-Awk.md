@@ -413,7 +413,7 @@ sed有两种缓冲区，一种是模式缓冲区(Pattern Buffer)另一种是保�
 	/O=Grid/OU=GlobusTest/OU=simpleCA-seugrid1.seu.edu.cn/OU=seu.edu.cn/CN=globus
 	#到最后一行时，输出保持缓冲区的内容	
 
-
+太多内容了，`awk`还是坐电梯吧，[传送门](http://gayyzxyx.github.com/shell/2013/03/02/Awk/)
 
 
 
