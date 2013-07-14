@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 使用nginx解决BOTTLE单例
-category: shell
+category: python
 tags: [bottle, nginx]
 keywords: bottle, nginx, python
 ---
